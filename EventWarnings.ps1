@@ -1,0 +1,1 @@
+Get-EventLog -logname application -newest 100 | where-object -property entrytype -Ccontains "warning" | Format-List | out-file Eventwarnings.txt

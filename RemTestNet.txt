@@ -1,0 +1,76 @@
+
+
+ComputerName           : one.one.one.one
+RemoteAddress          : 2606:4700:4700::1111
+NameResolutionResults  : 2606:4700:4700::1111
+                         2606:4700:4700::1001
+                         1.0.0.1
+                         1.1.1.1
+InterfaceAlias         : Wi-Fi
+SourceAddress          : 2600:1700:3ab0:7940::45
+NetRoute (NextHop)     : fe80::3aa0:67ff:fe63:da52
+PingSucceeded          : True
+PingReplyDetails (RTT) : 
+PSComputerName         : 192.168.1.68
+
+
+
+Date and time test was run 11/06/2021 15:15:23
+This was the computer tested 192.168.1.68
+
+
+ComputerName           : one.one.one.one
+RemoteAddress          : 2606:4700:4700::1001
+NameResolutionResults  : 2606:4700:4700::1001
+                         2606:4700:4700::1111
+                         1.0.0.1
+                         1.1.1.1
+InterfaceAlias         : Wi-Fi
+SourceAddress          : 2600:1700:3ab0:7940::45
+NetRoute (NextHop)     : fe80::3aa0:67ff:fe63:da52
+PingSucceeded          : True
+PingReplyDetails (RTT) : 
+PSComputerName         : 192.168.1.68
+
+
+
+Date and time test was run 11/06/2021 15:16:49
+This was the computer tested 192.168.1.68
+
+
+ComputerName           : one.one.one.one
+RemoteAddress          : 2606:4700:4700::1001
+NameResolutionResults  : 2606:4700:4700::1001
+                         2606:4700:4700::1111
+                         1.0.0.1
+                         1.1.1.1
+InterfaceAlias         : Wi-Fi
+SourceAddress          : 2600:1700:3ab0:7940::45
+NetRoute (NextHop)     : fe80::3aa0:67ff:fe63:da52
+PingSucceeded          : True
+PingReplyDetails (RTT) : 
+PSComputerName         : 192.168.1.68
+
+
+
+Date and time test was run 11/06/2021 15:17:16
+This was the computer tested 192.168.1.68
+Date and time test was run 11/06/2021 15:28:34
+This was the computer tested 192.168.1.68
+
+
+ComputerName           : one.one.one.one
+RemoteAddress          : 2606:4700:4700::1001
+NameResolutionResults  : 2606:4700:4700::1001
+                         2606:4700:4700::1111
+                         1.1.1.1
+                         1.0.0.1
+InterfaceAlias         : Wi-Fi
+SourceAddress          : 2600:1700:3ab0:7940::45
+NetRoute (NextHop)     : fe80::3aa0:67ff:fe63:da52
+PingSucceeded          : True
+PingReplyDetails (RTT) : 
+PSComputerName         : 192.168.1.68
+
+
+

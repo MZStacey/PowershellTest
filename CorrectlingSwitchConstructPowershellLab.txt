@@ -1,0 +1,100 @@
+<#
+.SYNOPSIS
+Tests a connection to CloudFlare DNS
+
+.DESCRIPTION
+This command will test a single computer's or multiple computers' Internet connection to CloudFlare's One.One.One.One DNS Server  
+
+.PARAMETER Computername
+The computer name, or names, to query.  No default.  This is a mandatory parameter that will prompt the user for input.
+
+.PARAMETER Path
+Specifies a path of one or more locations.  The default location is the that users currently loggin in home directory.
+
+.PARAMETER Output
+Specifies the destination of output when script is run.  There are three output options.  They are Host, Text or CSV.  The default value is Host.
+	- Host (screen)
+	- Text (.txt file)
+	- CSV (.csv file)
+File outputs are saved to the user's home directory.  The default destination is host.
+
+.NOTES
+	Author:  Michael Stacey
+	Last Edit: 2021 Oct 24
+	Version 5.5 Fifty-fifth Trial for Initial Release of Test-CloudFlare
+
+.EXAMPLE
+PS C:\>.\Test-CloudFlare -Computername DistinguishOpinion
+Example 1:  Test connectivity to CloudFlare DNS on that specific computer
+
+.EXAMPLE
+PS C:\>.\Test=CloudFlare -Computername DistinghuishOpinion -Output TXT
+Example 2:  Test connectivity to CloudFlare DNS and writes the output to a TXT file
+
+.EXAMPLE
+ps c:\>.\Test=CloudFlare -Computername DistinguishOpinion -Output CSV
+Example 3:  Test connectivity to CloudFlare DNS and writes the output to a CSV file. 
+#>
+[CmdletBinding()]
+Param (
+	[Parameter(Mandatory=$True)]
+	[string[]]$Computername,
+	[Parameter(Mandatory=$False)]
+	[string]$Path = "$Env:USERPROFILE",
+	[Parameter(Mandatory=$False)]
+	[string]$Output = "Host"
+)
+Clear-Host
+Set-Location $Path
+$DateTime = Get-Date
+
+#Creates a new session to the remote computer(s)
+$Session = New-PSSession -computername $Computername
+
+Write-Verbose "Connecting to $Computername ...."
+
+#Remotely runs Test-NetConnection to 1.1.1.1 on target computer (s) as a background job
+invoke-command -command {Test-NetConnection -Computername one.one.one.one -InformationLevel Detailed} -session $Session -asjob  -jobname RemTestNet
+
+Write-Verbose "Testing connection to One.One.One.One on $Computername ...."
+
+#Pauses script processing to allow Test-NetConnection to complete
+Start-Sleep -seconds 10
+
+
+#Displays results based on -Output parameter
+
+
+Write-Verbose "Receiving test results"
+
+#Preparing for switch construct options
+Write-Verbose "The output that is generated is based on the output parameter option"
+
+
+switch ($output) {  
+	"Host" {Receive-Job -name RemTestNet}
+	"CSV" {
+			Write-Verbose "Generating Results File..."
+			Receive-Job -name RemTestNet | Export-CSV -path .\JobResults.csv
+	}
+	"Text" {
+	#Creates a text file containing the name of the computer being tested, the date/time, and the job output
+	Write-Verbose "Generating results file..."
+	Receive-Job -Name RemTestNet | Out-file .\JobResults.txt
+	Add-Content .\RemTestNet.txt -value "Computer Tested: $Computername"
+	Add-Content .\RemTestNet.txt -value "Date/Time Tested: $Datetime"
+	Add-Content .\RemTestNet.txt -value (Get-Content -path .\JobResults.txt)
+	Remote-Item .\JobResults.txt
+	Write-Verbose "Opening Results ..."
+	Notepad .\RemTestNet.txt
+    }
+	
+        
+    
+	default {Write-Host "$Ouput chosen is not a valid parameter entry"}
+    }
+
+#Closes the session to the remote computer (s)
+Remove-PSSession $Session
+
+Write-Verbose "Finished Running Test."
